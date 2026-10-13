@@ -4,8 +4,8 @@
   const play = demo.querySelector('[data-demo-play]');
   const reduced = window.matchMedia('(prefers-reduced-motion: reduce)');
   const text = [
-    ['RGB-only', 'Future appearance is explicitly supervised, while geometry and action-relevant regions remain implicit when producing the trajectory.', 'What will the scene look like?'],
-    ['AffordDrive3D', 'Alongside future RGB, AffordDrive3D predicts depth, drivable areas, and collision-critical regions. These complementary targets shape the shared representation used for trajectory planning.', 'Planning-relevant structure becomes explicit.']
+    ['RGB-only', 'RGB-based world-action models primarily capture future scene evolution through appearance prediction. Spatial structure and regions relevant to ego motion remain implicit.', 'Future scene evolution through appearance.'],
+    ['AffordDrive3D', 'AffordDrive3D predicts future geometry to model evolving spatial structure and driving affordances to identify regions critical to ego motion. These signals shape the shared representation used for trajectory planning.', 'World modeling is aligned more closely with planning.']
   ];
   let step = 1, timer = null, playing = false, interacted = false;
   function renderStep(next) {
