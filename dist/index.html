@@ -12,9 +12,9 @@
   <meta name="twitter:card" content="summary_large_image">
   <title>AffordDrive3D · Affordance-Aware World-Action Modeling</title>
   <link rel="icon" href="assets/favicon.svg?v=2" type="image/svg+xml">
-  <link rel="stylesheet" href="assets/paper.css?v=8">
-  <link rel="stylesheet" href="assets/experience.css?v=2">
-  <script src="assets/site.js?v=3" defer></script>
+  <link rel="stylesheet" href="assets/paper.css?v=9">
+  <link rel="stylesheet" href="assets/experience.css?v=3">
+  <script src="assets/site.js?v=4" defer></script>
   <script src="assets/experience.js" defer></script>
 </head>
 <body>
@@ -64,7 +64,7 @@
     <section class="section section-light" id="idea" aria-labelledby="idea-title">
       <div class="section-heading">
         <p class="section-index">01 / Overview</p>
-        <h2 id="idea-title">Aligning future world modeling with the planning objective through geometric and affordance prediction</h2>
+        <h2 id="idea-title">Aligning future world modeling with the planning objective through <span class="geometry-term">geometric</span> and <span class="affordance-term">affordance</span> prediction</h2>
       </div>
       <div class="overview-demo" data-demo data-step="1">
         <div id="demo-panel" role="tabpanel" aria-labelledby="demo-step-1">
@@ -93,9 +93,9 @@
               <p class="small-label">World predictions</p>
               <div class="prediction-grid">
                 <figure class="rgb-signal"><img src="assets/scenes/teaser-image4.webp" width="1024" height="576" alt="Predicted future RGB appearance."><figcaption><span>Future RGB</span><em>appearance</em></figcaption></figure>
-                <figure class="added-signal"><img src="assets/scenes/teaser-image8.webp" width="1024" height="576" alt="Predicted depth indicating spatial structure."><figcaption><span>Depth</span><em>geometry</em></figcaption></figure>
-                <figure class="added-signal"><img src="assets/scenes/teaser-image12.webp" width="1024" height="576" alt="Predicted drivable area outlined in green."><figcaption><span>Drivable area</span><em>affordance</em></figcaption></figure>
-                <figure class="added-signal"><img src="assets/scenes/teaser-image16.webp" width="1024" height="576" alt="Predicted collision-critical regions outlined in red."><figcaption><span>Collision-critical</span><em>affordance</em></figcaption></figure>
+                <figure class="added-signal geometry-signal"><img src="assets/scenes/teaser-image8.webp" width="1024" height="576" alt="Predicted depth indicating spatial structure."><figcaption><span>Depth</span><em>geometry</em></figcaption></figure>
+                <figure class="added-signal affordance-signal"><img src="assets/scenes/teaser-image12.webp" width="1024" height="576" alt="Predicted drivable area outlined in green."><figcaption><span>Drivable area</span><em>affordance</em></figcaption></figure>
+                <figure class="added-signal affordance-signal"><img src="assets/scenes/teaser-image16.webp" width="1024" height="576" alt="Predicted collision-critical regions outlined in red."><figcaption><span>Collision-critical</span><em>affordance</em></figcaption></figure>
               </div>
             </div>
             <div class="demo-plans">
@@ -113,15 +113,22 @@
     </section>
 
     <section class="section section-dark" id="system" aria-labelledby="system-title">
-      <div class="section-heading section-heading-split reveal">
-        <div>
-          <p class="section-index">02 / Method</p>
-          <h2 id="system-title">The AffordDrive3D framework</h2>
-        </div>
-        <p>A causal VLM processes multi-view images, navigation commands, ego state, and four groups of learnable tokens. Explore each branch to see how it contributes to planning.</p>
+      <div class="section-heading reveal">
+        <p class="section-index">02 / Method</p>
+        <h2 id="system-title">The AffordDrive3D framework</h2>
       </div>
 
-      <div class="branch-explorer reveal" data-branch-explorer>
+      <figure class="paper-figure method-figure reveal">
+        <button class="image-frame" type="button" data-lightbox="assets/framework.webp" data-caption="AffordDrive3D framework. Auxiliary affordance, RGB, and geometry branches shape a shared causal VLM representation during training; only the action branch is required at inference.">
+          <img src="assets/framework.webp" alt="AffordDrive3D framework with a shared VLM backbone and affordance, RGB world, geometry, and action branches." width="2400" height="1213" loading="lazy">
+          <span class="expand-hint">Open figure <span aria-hidden="true">↗</span></span>
+        </button>
+        <figcaption><span>Figure 2</span> The shared VLM representation is jointly shaped by scene semantics, future appearance, spatial structure, action-relevant regions, and trajectory learning.</figcaption>
+      </figure>
+
+      <p class="method-summary reveal">A causal VLM processes multi-view images, navigation commands, ego state, and four groups of learnable tokens.</p>
+
+      <div class="branch-explorer reveal" data-branch-explorer data-active-branch="affordance">
         <div class="branch-tabs" role="tablist" aria-label="Model branches">
           <button role="tab" aria-selected="true" aria-controls="branch-panel" id="branch-aff" data-branch="affordance">Affordance</button>
           <button role="tab" aria-selected="false" aria-controls="branch-panel" id="branch-rgb" data-branch="rgb">RGB world</button>
@@ -129,19 +136,11 @@
           <button role="tab" aria-selected="false" aria-controls="branch-panel" id="branch-act" data-branch="action">Action</button>
         </div>
         <div class="branch-panel" id="branch-panel" role="tabpanel" aria-labelledby="branch-aff" tabindex="0">
-          <p class="branch-kicker" data-branch-kicker>What matters for motion</p>
+          <p class="branch-kicker" data-branch-kicker>What matters for action</p>
           <h3 data-branch-title>Temporal affordance forecasting</h3>
           <p data-branch-copy>Affordance tokens forecast <strong>drivable areas</strong> and <strong>collision-critical regions</strong> across the current and future scene, explicitly modeling how <strong>action-relevant space</strong> evolves over time.</p>
         </div>
       </div>
-
-      <figure class="paper-figure reveal">
-        <button class="image-frame" type="button" data-lightbox="assets/framework.webp" data-caption="AffordDrive3D framework. Auxiliary affordance, RGB, and geometry branches shape a shared causal VLM representation during training; only the action branch is required at inference.">
-          <img src="assets/framework.webp" alt="AffordDrive3D framework with a shared VLM backbone and affordance, RGB world, geometry, and action branches." width="2400" height="1213" loading="lazy">
-          <span class="expand-hint">Open figure <span aria-hidden="true">↗</span></span>
-        </button>
-        <figcaption><span>Figure 2</span> The shared VLM representation is jointly shaped by scene semantics, future appearance, spatial structure, action-relevant regions, and trajectory learning.</figcaption>
-      </figure>
     </section>
 
 
@@ -154,9 +153,8 @@
       <div class="benchmark-grid">
         <article class="benchmark">
           <header><span>NAVSIM v1</span><h3>PDMS <small>↑ higher is better</small></h3></header>
-          <div class="score-headline"><strong>91.3</strong><span>AffordDrive3D</span></div>
-          <table><caption>Selected leading methods · NAVSIM v1</caption><thead><tr><th scope="col">Method</th><th scope="col">World supervision</th><th scope="col">PDMS</th></tr></thead><tbody>
-            <tr class="our-result"><th scope="row">AffordDrive3D</th><td>Aff + RGB + Depth</td><td>91.3</td></tr>
+          <div class="score-headline"><strong>91.3</strong><div><b>+0.5</b><span>vs. best baseline</span></div></div>
+          <table><caption>Baseline methods</caption><thead><tr><th scope="col">Method</th><th scope="col">World supervision</th><th scope="col">PDMS</th></tr></thead><tbody>
             <tr><th scope="row">ReCogDrive</th><td>—</td><td>90.8</td></tr>
             <tr><th scope="row">OWMDrive</th><td>3D Occupancy</td><td>90.8</td></tr>
             <tr><th scope="row">ExploreVLA</th><td>RGB + Depth</td><td>90.4</td></tr>
@@ -165,9 +163,8 @@
         </article>
         <article class="benchmark">
           <header><span>NAVSIM v2</span><h3>EPDMS <small>↑ higher is better</small></h3></header>
-          <div class="score-headline"><strong>89.9</strong><span>AffordDrive3D</span></div>
-          <table><caption>Selected leading methods · NAVSIM v2</caption><thead><tr><th scope="col">Method</th><th scope="col">World supervision</th><th scope="col">EPDMS</th></tr></thead><tbody>
-            <tr class="our-result"><th scope="row">AffordDrive3D</th><td>Aff + RGB + Depth</td><td>89.9</td></tr>
+          <div class="score-headline"><strong>89.9</strong><div><b>+1.1</b><span>vs. best baseline</span></div></div>
+          <table><caption>Baseline methods</caption><thead><tr><th scope="col">Method</th><th scope="col">World supervision</th><th scope="col">EPDMS</th></tr></thead><tbody>
             <tr><th scope="row">ExploreVLA</th><td>RGB + Depth</td><td>88.8</td></tr>
             <tr><th scope="row">DriveDreamer-Policy</th><td>RGB + Current Depth</td><td>88.7</td></tr>
             <tr><th scope="row">DriveSuprim</th><td>—</td><td>87.1</td></tr>
@@ -175,7 +172,7 @@
           </tbody></table>
         </article>
       </div>
-      <p class="benchmark-note">World supervision follows the paper’s “World Sup.” labels. Aff = driving affordances.</p>
+      <p class="benchmark-note">World supervision follows the paper’s “World Sup.” labels.</p>
     </section>
 
 

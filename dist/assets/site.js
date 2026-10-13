@@ -41,7 +41,7 @@
 
   const branchData = {
     affordance: {
-      kicker: 'What matters for motion',
+      kicker: 'What matters for action',
       title: 'Temporal affordance forecasting',
       copy: 'Affordance tokens forecast <strong>drivable areas</strong> and <strong>collision-critical regions</strong> across the current and future scene, explicitly modeling how <strong>action-relevant space</strong> evolves over time.'
     },
@@ -51,7 +51,7 @@
       copy: '<strong>RGB world tokens</strong> condition a video diffusion model to predict <strong>future scene appearance</strong> in latent space. The denoised future latent also provides <strong>future-scene context</strong> for geometry prediction.'
     },
     geometry: {
-      kicker: 'Where the future is',
+      kicker: 'What the future geometry looks like',
       title: 'RGB-conditioned geometry',
       copy: 'The geometry branch uses the <strong>denoised RGB latent</strong> as future-scene context, allowing it to recover the <strong>3D structure</strong> associated with the same <strong>predicted visual evolution</strong>.'
     },
@@ -70,6 +70,7 @@
       if (!data) return;
       branchExplorer.querySelectorAll('[data-branch]').forEach((button) => button.setAttribute('aria-selected', String(button === tab)));
       const panel = branchExplorer.querySelector('#branch-panel');
+      branchExplorer.dataset.activeBranch = key;
       panel.setAttribute('aria-labelledby', tab.id);
       branchExplorer.querySelector('[data-branch-kicker]').textContent = data.kicker;
       branchExplorer.querySelector('[data-branch-title]').textContent = data.title;
