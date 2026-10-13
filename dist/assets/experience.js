@@ -3,7 +3,7 @@
   const steps = [...demo.querySelectorAll('[data-step-button]')];
   const text = [
     ['RGB-only', 'RGB-based world-action models predict how the scene will look in future frames. Geometry and regions relevant to ego motion are not modeled explicitly.', 'Predicting future scene appearance'],
-    ['AffordDrive3D', 'AffordDrive3D predicts future geometry to model evolving spatial structure and driving affordances to identify regions critical to ego motion. These signals shape the shared representation used for trajectory planning.', 'Future geometry and driving affordances']
+    ['AffordDrive3D', 'AffordDrive3D predicts future geometry to model evolving spatial structure and driving affordances to identify regions critical to ego motion. Together, these signals make future world modeling explicitly action-relevant for trajectory planning.', 'Future geometry and driving affordances']
   ];
   let step = 1;
   function renderStep(next) {

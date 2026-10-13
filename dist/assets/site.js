@@ -62,7 +62,7 @@
       kicker: 'What the ego should do',
       title: 'Diffusion trajectory generation',
       copy: 'Action-token states condition a diffusion transformer trained with flow matching to generate the future ego trajectory. At inference time, this is the only branch that needs to run.',
-      facts: ['8 tokens', 'flow matching', 'inference branch']
+      facts: ['8 tokens', 'flow matching']
     }
   };
 
