@@ -1,6 +1,6 @@
 /* Web-native compositions assembled from the original PowerPoint assets. */
 [hidden] { display:none!important; }
-.hero .site-nav { justify-content:flex-end; max-width:900px; margin-top:22px; margin-bottom:0; }
+.hero .site-nav { justify-content:center; max-width:900px; margin-top:22px; margin-bottom:0; }
 .hero .metric-rail { margin-top:26px; }
 .section-intro { max-width:850px; margin:16px 0 0; color:var(--muted); font-size:16px; }
 .section-qualitative { background:var(--surface); }

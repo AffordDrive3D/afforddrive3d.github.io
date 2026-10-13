@@ -2,10 +2,10 @@
   const demo = document.querySelector('[data-demo]');
   const steps = [...demo.querySelectorAll('[data-step-button]')];
   const text = [
-    ['RGB-only', 'RGB-based world-action models predict how the scene will look in <strong>future frames</strong>. <strong>Geometry</strong> and regions relevant to ego motion are not modeled explicitly.', 'Predicting future scene appearance'],
+    ['RGB-only', 'RGB-based world-action models predict how the scene will look in <strong>future frames</strong>. <strong>Geometry</strong> and <strong>action-relevant regions</strong> are not modeled explicitly.', 'Predicting future scene appearance'],
     ['AffordDrive3D', 'AffordDrive3D predicts <strong>future geometry</strong> to model evolving spatial structure and <strong>driving affordances</strong> to identify regions critical to ego motion. Together, these signals make future world modeling explicitly <strong>action-relevant</strong> for trajectory planning.', 'Future geometry and driving affordances']
   ];
-  let step = 1;
+  let step = 0;
   function renderStep(next) {
     step = next; demo.dataset.step = String(step);
     steps.forEach((button, i) => { button.setAttribute('aria-selected', String(i === step)); button.tabIndex = i === step ? 0 : -1; });
@@ -16,8 +16,13 @@
     demo.querySelectorAll('.added-signal').forEach(el => el.setAttribute('aria-hidden', String(step < 1)));
     demo.querySelector('.added-plan').setAttribute('aria-hidden', String(step < 1));
   }
-  steps.forEach((button, i) => button.addEventListener('click', () => renderStep(i)));
-  renderStep(1);
+  let introTimer = window.setTimeout(() => renderStep(1), 3000);
+  steps.forEach((button, i) => button.addEventListener('click', () => {
+    window.clearTimeout(introTimer);
+    introTimer = null;
+    renderStep(i);
+  }));
+  renderStep(0);
 
   // Keyboard navigation follows the selected tab within each independent group.
   document.querySelectorAll('[role="tablist"]').forEach(list => {

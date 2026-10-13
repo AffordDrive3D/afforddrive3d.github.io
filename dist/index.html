@@ -13,9 +13,9 @@
   <title>AffordDrive3D · Affordance-Aware World-Action Modeling</title>
   <link rel="icon" href="assets/favicon.svg?v=2" type="image/svg+xml">
   <link rel="stylesheet" href="assets/paper.css?v=10">
-  <link rel="stylesheet" href="assets/experience.css?v=3">
+  <link rel="stylesheet" href="assets/experience.css?v=4">
   <script src="assets/site.js?v=5" defer></script>
-  <script src="assets/experience.js" defer></script>
+  <script src="assets/experience.js?v=2" defer></script>
 </head>
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
@@ -66,17 +66,17 @@
         <p class="section-index">01 / Overview</p>
         <h2 id="idea-title">Aligning future world modeling with the planning objective through <span class="geometry-term">geometric</span> and <span class="affordance-term">affordance</span> prediction</h2>
       </div>
-      <div class="overview-demo" data-demo data-step="1">
-        <div id="demo-panel" role="tabpanel" aria-labelledby="demo-step-1">
+      <div class="overview-demo" data-demo data-step="0">
+        <div id="demo-panel" role="tabpanel" aria-labelledby="demo-step-0">
           <div class="demo-selector">
             <div class="model-contrast" role="tablist" aria-label="Compare world-model supervision">
-              <button class="contrast-card contrast-rgb" type="button" role="tab" id="demo-step-0" aria-controls="demo-panel" aria-selected="false" data-step-button="0">
+              <button class="contrast-card contrast-rgb" type="button" role="tab" id="demo-step-0" aria-controls="demo-panel" aria-selected="true" data-step-button="0">
               <span class="contrast-model">RGB-only world-action model</span>
               <strong>Future appearance</strong>
               <small>Predicts future RGB frames</small>
               </button>
               <div class="contrast-versus" aria-hidden="true">vs.</div>
-              <button class="contrast-card contrast-ours" type="button" role="tab" id="demo-step-1" aria-controls="demo-panel" aria-selected="true" data-step-button="1">
+              <button class="contrast-card contrast-ours" type="button" role="tab" id="demo-step-1" aria-controls="demo-panel" aria-selected="false" data-step-button="1">
               <span class="contrast-model">Affordance- and geometry-aware world-action model</span>
               <strong>AffordDrive3D</strong>
               <small>Future geometry · drivable areas · collision-critical regions</small>
@@ -107,7 +107,7 @@
               <div class="trajectory-legend"><span class="human">Human</span><span class="rgb">RGB WAM</span><span class="ours">AffordDrive3D</span></div>
             </div>
           </div>
-          <div class="demo-explanation" aria-live="polite"><span class="explanation-label" data-demo-label>AffordDrive3D</span><strong data-demo-title>Future geometry and driving affordances</strong><p data-demo-copy>AffordDrive3D predicts <strong>future geometry</strong> to model evolving spatial structure and <strong>driving affordances</strong> to identify regions critical to ego motion. Together, these signals make future world modeling explicitly <strong>action-relevant</strong> for trajectory planning.</p></div>
+          <div class="demo-explanation" aria-live="polite"><span class="explanation-label" data-demo-label>RGB-only</span><strong data-demo-title>Predicting future scene appearance</strong><p data-demo-copy>RGB-based world-action models predict how the scene will look in <strong>future frames</strong>. <strong>Geometry</strong> and <strong>action-relevant regions</strong> are not modeled explicitly.</p></div>
         </div>
       </div>
     </section>
