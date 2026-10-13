@@ -133,50 +133,55 @@
 }
 @media(prefers-reduced-motion:reduce) { .added-signal img,.added-plan img,.added-plan .outcome { transition:none; } }
 
-/* Compact, topic-led sequences keep the supplied frames together. */
-.qual-case { display:grid; grid-template-columns:300px minmax(0,1fr); gap:34px; align-items:start; padding:30px 0; }
+/* Each case pairs its narrative with the trajectory evidence, then gives the temporal sequence the full row. */
+.qual-case { display:grid; grid-template-columns:1fr; gap:24px; padding:30px 0; }
 .qual-case + .qual-case { margin-top:12px; border-top:1px solid var(--line); }
-.qual-case-copy .case-kicker { margin:0 0 8px; font-size:11px; font-weight:650; color:var(--accent); }
-.qual-case-copy h3 { margin:0 0 13px; font-size:23px; line-height:1.35; font-weight:600; }
-.qual-case-copy>p:last-child { margin:0; font-size:13px; color:var(--muted); }
-.qual-sequence { margin:0; min-width:0; max-width:780px; }
-.scenario-visuals { min-width:0; max-width:780px; }
+.qual-case-copy { display:grid; grid-template-columns:280px minmax(0,1fr); column-gap:34px; align-items:start; }
+.qual-case-copy .case-kicker { grid-column:1; grid-row:1; margin:0 0 8px; font-size:11px; font-weight:650; color:var(--accent); }
+.qual-case-copy h3 { grid-column:1; grid-row:2; margin:0 0 13px; font-size:23px; line-height:1.35; font-weight:600; }
+.qual-case-copy>p:not(.case-kicker) { grid-column:1; grid-row:3; margin:0; font-size:13px; color:var(--muted); }
+.qual-sequence,.scenario-visuals { margin:0; min-width:0; max-width:none; }
 .sequence-grid { display:grid; grid-template-columns:83px repeat(3,minmax(0,1fr)); align-items:center; gap:8px; }
 .sequence-label { color:var(--muted); font-size:11px; line-height:1.4; overflow-wrap:anywhere; }
 .sequence-time { text-align:center; font-size:10px; color:var(--muted); }
 .sequence-grid .image-frame { min-width:0; }
 .sequence-grid img { display:block; width:100%; height:auto; object-fit:contain; }
 .qual-sequence>figcaption { margin:12px 0 0 91px; font-size:10px; line-height:1.6; color:var(--muted); }
-.scenario-trajectories { margin-top:24px; padding-top:18px; border-top:1px solid var(--line); }
+.scenario-trajectories { grid-column:2; grid-row:1/4; margin:0; padding:0; }
 .scenario-trajectories>p { margin:0 0 11px; color:var(--muted); font-size:10px; font-weight:650; letter-spacing:.08em; text-transform:uppercase; }
-.trajectory-strip { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:7px; }
+.trajectory-strip { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:9px; }
 .trajectory-mini { min-width:0; margin:0; padding:7px 4px; border:1px solid var(--line); border-radius:5px; background:#fff; text-align:center; }
 .trajectory-mini-ours { border-color:#8eb7d0; box-shadow:inset 0 3px 0 var(--accent); }
+.trajectory-zoom { border-color:#dba6a1; background:#fffafa; }
 .trajectory-mini .image-frame { width:100%; background:#f4f6f8; }
-.trajectory-mini img { width:100%; height:145px; object-fit:contain; }
-.trajectory-strip-tall .trajectory-mini img { height:180px; }
+.trajectory-mini img { width:100%; height:165px; object-fit:contain; }
+.trajectory-strip-tall .trajectory-mini img { height:195px; }
 .trajectory-mini figcaption { margin-top:7px; color:var(--muted); font-size:10px; line-height:1.3; }
 .trajectory-mini-ours figcaption { color:var(--accent); font-weight:650; }
+.trajectory-zoom figcaption { display:grid; gap:1px; }
+.failure-label { color:#a44d49; font-weight:700; }
 .benchmark th:nth-child(2),.benchmark td:nth-child(2) { text-align:left; }
 .benchmark td:nth-child(2) { color:var(--muted); font-size:11px; }
 .benchmark .our-result td:nth-child(2) { color:var(--accent); }
 @media(max-width:1000px) {
   .benchmark-grid { grid-template-columns:1fr; }
-  .qual-case { grid-template-columns:260px minmax(0,1fr); gap:24px; }
+  .qual-case-copy { grid-template-columns:240px minmax(0,1fr); column-gap:24px; }
   .sequence-grid { grid-template-columns:67px repeat(3,minmax(0,1fr)); gap:6px; }
   .qual-sequence>figcaption { margin-left:73px; }
 }
 @media(max-width:700px) {
-  .qual-case { grid-template-columns:1fr; gap:22px; padding:22px 0; }
+  .qual-case { gap:20px; padding:22px 0; }
+  .qual-case-copy { grid-template-columns:1fr; }
+  .qual-case-copy .case-kicker,.qual-case-copy h3,.qual-case-copy>p:not(.case-kicker),.scenario-trajectories { grid-column:1; grid-row:auto; }
   .qual-case-copy h3 { font-size:21px; }
   .sequence-grid { grid-template-columns:57px repeat(3,minmax(0,1fr)); gap:5px; }
   .sequence-label,.sequence-time { font-size:9px; }
   .qual-sequence>figcaption { margin-left:62px; font-size:9px; }
-  .scenario-trajectories { margin-top:20px; }
-  .trajectory-strip { gap:6px; }
+  .scenario-trajectories { margin-top:20px; padding-top:16px; border-top:1px solid var(--line); }
+  .trajectory-strip { grid-template-columns:repeat(2,minmax(0,1fr)); gap:8px; }
   .trajectory-mini { padding:6px 3px; }
-  .trajectory-mini img { height:150px; }
-  .trajectory-strip-tall .trajectory-mini img { height:185px; }
+  .trajectory-mini img { height:190px; }
+  .trajectory-strip-tall .trajectory-mini img { height:230px; }
   .trajectory-mini figcaption { font-size:9px; }
   .benchmark table { font-size:11px; }
   .benchmark td:nth-child(2) { font-size:10px; }
