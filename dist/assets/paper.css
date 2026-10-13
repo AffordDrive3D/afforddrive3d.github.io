@@ -142,10 +142,7 @@ h2,h3 { text-wrap:balance; }
 .gallery-card b { font-size:14px; font-weight:600; }
 .gallery-card small { color:var(--muted); font-size:12px; }
 .citation-copy { margin-bottom:26px; }
-.citation-copy p:not(.section-index) { color:var(--muted); font-size:14px; }
-.citation-actions { display:flex; flex-wrap:wrap; gap:10px; margin-top:20px; }
 .bibtex-card { border:1px solid var(--line); border-radius:7px; background:#fff; overflow:hidden; }
-.bibtex-card>div { display:flex; justify-content:space-between; gap:12px; padding:12px 22px; border-bottom:1px solid var(--line); color:var(--muted); font-size:11px; }
 .bibtex-card pre { margin:0; padding:22px; overflow:auto; color:#415369; font:12px/1.8 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace; }
 .site-footer { display:flex; align-items:center; justify-content:space-between; gap:24px; padding:25px var(--pad); border-top:1px solid var(--line); color:var(--muted); background:#fff; font-size:11px; }
 .site-footer p { margin:0; }.site-footer a { text-decoration:none; }

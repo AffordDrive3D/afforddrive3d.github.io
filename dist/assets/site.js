@@ -101,26 +101,4 @@
   });
   dialog?.addEventListener('close', () => document.body.classList.remove('lightbox-open'));
 
-  const copyButton = document.querySelector('[data-copy-citation]');
-  const copyStatus = document.querySelector('[data-copy-status]');
-  copyButton?.addEventListener('click', async () => {
-    const citation = document.querySelector('#bibtex')?.textContent || '';
-    try {
-      await navigator.clipboard.writeText(citation);
-      copyButton.textContent = 'Copied';
-      if (copyStatus) copyStatus.textContent = 'Copied to clipboard';
-    } catch {
-      const selection = window.getSelection();
-      const range = document.createRange();
-      range.selectNodeContents(document.querySelector('#bibtex'));
-      selection.removeAllRanges();
-      selection.addRange(range);
-      copyButton.textContent = 'Selected';
-      if (copyStatus) copyStatus.textContent = 'Press Ctrl/Cmd + C';
-    }
-    window.setTimeout(() => {
-      copyButton.textContent = 'Copy BibTeX';
-      if (copyStatus) copyStatus.textContent = 'Ready to copy';
-    }, 2200);
-  });
 })();
