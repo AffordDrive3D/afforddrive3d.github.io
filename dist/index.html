@@ -70,9 +70,10 @@
         <p class="section-intro">AffordDrive3D connects future appearance with spatial structure and action-relevant regions. Explore how these predictions relate to planning in the same driving scene.</p>
       </div>
       <div class="overview-demo" data-demo data-step="1">
+        <div class="comparison-thesis"><span class="comparison-thesis-label">Same scene. Different decisions.</span><strong>Seeing the future is not enough. A driving policy also needs to understand where it can safely move.</strong></div>
         <div class="demo-toolbar">
           <div class="demo-steps" role="tablist" aria-label="Overview animation stages">
-            <button role="tab" id="demo-step-0" aria-controls="demo-panel" aria-selected="false" data-step-button="0"><span>1</span> RGB world-action model</button>
+            <button role="tab" id="demo-step-0" aria-controls="demo-panel" aria-selected="false" data-step-button="0"><span>1</span> RGB-only world model</button>
             <button role="tab" id="demo-step-1" aria-controls="demo-panel" aria-selected="true" data-step-button="1"><span>2</span> AffordDrive3D</button>
           </div>
           <button class="play-control" type="button" data-demo-play>Replay</button>
@@ -96,15 +97,15 @@
             <div class="demo-plans">
               <p class="small-label">Planning outcomes</p>
               <div class="plan-pair">
-                <figure><figcaption>RGB world-action model</figcaption><img src="assets/scenes/teaser-image17.webp" width="1400" height="1400" alt="DriveVLA-W0 trajectory collides with a vehicle in this example."><p class="outcome outcome-bad">Collision <span>PDMS 0.0</span></p></figure>
-                <figure class="added-plan"><figcaption>AffordDrive3D</figcaption><img src="assets/scenes/teaser-image18.webp" width="1400" height="1400" alt="AffordDrive3D trajectory safely stops behind the leading vehicle."><p class="outcome outcome-good">Safe trajectory <span>PDMS 100.0</span></p></figure>
+                <figure><figcaption><span class="model-tag model-tag-rgb">RGB-only · DriveVLA-W0</span></figcaption><img src="assets/scenes/teaser-image17.webp" width="1400" height="1400" alt="DriveVLA-W0 trajectory collides with a vehicle in this example."><p class="outcome outcome-bad"><span class="outcome-label">✕ Collision with lead vehicle</span><span>Scene PDMS · 0.0</span></p></figure>
+                <figure class="added-plan"><figcaption><span class="model-tag model-tag-ours">AffordDrive3D · Ours</span></figcaption><img src="assets/scenes/teaser-image18.webp" width="1400" height="1400" alt="AffordDrive3D trajectory safely stops behind the leading vehicle."><p class="outcome outcome-good"><span class="outcome-label">✓ Safe stop behind lead vehicle</span><span>Scene PDMS · 100.0</span></p></figure>
               </div>
-              <div class="trajectory-legend"><span class="human">Human</span><span class="rgb">RGB WAM</span><span class="ours">AffordDrive3D</span></div>
+              <div class="trajectory-legend"><span class="human">Human</span><span class="rgb">DriveVLA-W0</span><span class="ours">AffordDrive3D</span></div>
             </div>
           </div>
-          <div class="demo-explanation" aria-live="polite"><strong data-demo-title>Future geometry and driving affordances.</strong><p data-demo-copy>AffordDrive3D additionally predicts future geometry to capture evolving spatial structure, alongside drivable areas and collision-critical regions relevant to ego motion. Together, these predictions align future world modeling more closely with trajectory planning.</p></div>
+          <div class="demo-explanation" aria-live="polite"><strong data-demo-title>From appearance to action-relevant spatial understanding.</strong><p data-demo-copy>AffordDrive3D additionally predicts future geometry to capture evolving spatial structure, alongside drivable areas and collision-critical regions relevant to ego motion. Together, these predictions align future world modeling more closely with trajectory planning.</p></div>
         </div>
-        <p class="figure-note">Staged explanation of the paper’s example, not a real-time inference video. Per-scene PDMS is shown for the two trajectories.</p>
+        <p class="figure-note">Qualitative comparison with DriveVLA-W0 (RGB world supervision). The animation stages the available predictions; the trajectory images and per-scene PDMS are from the paper, not a simulated live rollout. The colors distinguish the methods and do not recolor their plotted trajectories.</p>
       </div>
     </section>
 
