@@ -172,7 +172,7 @@
 .trajectory-key i { position:relative; display:inline-block; flex:0 0 auto; }
 .key-line { width:24px; height:4px; border-radius:2px; background:var(--key-color); }
 .key-human { --key-color:#5a9f49; }.key-ours { --key-color:#e87924; }.key-rgb { --key-color:#9345b5; }.key-action { --key-color:#2878b5; }
-.key-footprint { width:34px; height:15px; }
+.key-footprint { width:46px; height:15px; }
 .key-footprint b { position:absolute; top:1px; width:20px; height:13px; border:2px solid; background:rgba(255,255,255,.35); }
 .key-footprint b:first-child { left:0; border-color:#9345b5; }.key-footprint b:last-child { right:0; border-color:#2878b5; }
 .key-zoom { width:24px; height:15px; border:2px dashed #58616b; }
