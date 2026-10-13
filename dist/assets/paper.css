@@ -81,8 +81,7 @@ h2,h3 { text-wrap:balance; }
 .branch-kicker { margin:0 0 5px; color:var(--accent); font-size:12px; }
 .branch-panel h3 { margin:0; font-size:23px; font-weight:600; line-height:1.4; }
 .branch-panel>p:not(.branch-kicker) { color:var(--muted); margin:12px 0; font-size:14px; }
-.branch-facts { display:flex; flex-wrap:wrap; gap:8px; }
-.branch-facts span { padding:3px 8px; border:1px solid var(--line); border-radius:4px; color:var(--muted); font-size:11px; }
+.branch-panel>p strong { color:var(--ink); font-weight:650; }
 .paper-figure { margin-top:32px; margin-bottom:0; }
 .paper-figure .image-frame { padding:12px; border:1px solid var(--line); border-radius:6px; }
 .paper-figure figcaption { display:flex; align-items:baseline; gap:16px; margin-top:14px; color:var(--muted); font-size:13px; }

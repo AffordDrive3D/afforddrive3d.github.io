@@ -43,26 +43,22 @@
     affordance: {
       kicker: 'What matters for motion',
       title: 'Temporal affordance forecasting',
-      copy: 'Affordance tokens predict drivable-area and collision-critical maps for the current frame and eight future timestamps, linking spatial prediction directly to ego motion.',
-      facts: ['27 tokens', '2 dense maps']
+      copy: 'Affordance tokens forecast <strong>drivable areas</strong> and <strong>collision-critical regions</strong> across the current and future scene, explicitly modeling how <strong>action-relevant space</strong> evolves over time.'
     },
     rgb: {
       kicker: 'How the scene may evolve',
       title: 'Future RGB world modeling',
-      copy: 'RGB world tokens condition a video diffusion model that forecasts future visual appearance in latent space. Its denoised future latent also becomes the scene context for geometry prediction.',
-      facts: ['64 tokens', 'video diffusion', 'shared future context']
+      copy: '<strong>RGB world tokens</strong> condition a video diffusion model to predict <strong>future scene appearance</strong> in latent space. The denoised future latent also provides <strong>future-scene context</strong> for geometry prediction.'
     },
     geometry: {
       kicker: 'Where the future is',
       title: 'RGB-conditioned geometry',
-      copy: 'Geometry tokens are fused with denoised RGB latents so the branch can recover 3D structure for the same predicted future. Stop-gradient isolates geometry supervision from the RGB generator.',
-      facts: ['64 tokens', 'future depth', 'RGB-aligned']
+      copy: 'The geometry branch uses the <strong>denoised RGB latent</strong> as future-scene context, allowing it to recover the <strong>3D structure</strong> associated with the same <strong>predicted visual evolution</strong>.'
     },
     action: {
       kicker: 'What the ego should do',
       title: 'Diffusion trajectory generation',
-      copy: 'Action-token states condition a diffusion transformer trained with flow matching to generate the future ego trajectory. At inference time, this is the only branch that needs to run.',
-      facts: ['8 tokens', 'flow matching']
+      copy: '<strong>Action-token states</strong> condition a diffusion transformer trained with <strong>flow matching</strong> to generate the future ego trajectory. During inference, <strong>only the action branch</strong> is required.'
     }
   };
 
@@ -77,8 +73,7 @@
       panel.setAttribute('aria-labelledby', tab.id);
       branchExplorer.querySelector('[data-branch-kicker]').textContent = data.kicker;
       branchExplorer.querySelector('[data-branch-title]').textContent = data.title;
-      branchExplorer.querySelector('[data-branch-copy]').textContent = data.copy;
-      branchExplorer.querySelector('[data-branch-facts]').innerHTML = data.facts.map((fact) => `<span>${fact}</span>`).join('');
+      branchExplorer.querySelector('[data-branch-copy]').innerHTML = data.copy;
     });
   });
 
