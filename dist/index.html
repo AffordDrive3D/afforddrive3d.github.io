@@ -1,0 +1,238 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#ffffff">
+  <meta name="description" content="AffordDrive3D is an affordance- and geometry-aware world-action model for autonomous driving.">
+  <meta property="og:title" content="AffordDrive3D">
+  <meta property="og:description" content="Affordance-aware world-action modeling with spatial understanding.">
+  <meta property="og:type" content="website">
+  <meta property="og:image" content="assets/teaser.webp">
+  <meta name="twitter:card" content="summary_large_image">
+  <title>AffordDrive3D · Affordance-Aware World-Action Modeling</title>
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="assets/paper.css">
+  <link rel="stylesheet" href="assets/experience.css">
+  <script src="assets/site.js" defer></script>
+  <script src="assets/experience.js" defer></script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <main id="main">
+    <section class="hero" id="top" aria-labelledby="hero-title">
+      <h1 id="hero-title"><span class="paper-name">AffordDrive3D:</span> Affordance-Aware World-Action<br class="title-break"> Modeling with Spatial Understanding</h1>
+
+      <div class="hero-meta reveal">
+        <div class="authors" aria-label="Authors">
+          <span>Tianhui Cai<sup>1,2*‡</sup></span>
+          <span>Xinglong Sun<sup>2*</sup></span>
+          <span>Chao Fang<sup>3</sup></span>
+          <span>Zhenxin Li<sup>2,4‡</sup></span>
+          <span>Rui Song<sup>1</sup></span>
+          <span class="author-row-break" aria-hidden="true"></span>
+          <span>Jose M. Alvarez<sup>2</sup></span>
+          <span>Yunxiang Mao<sup>2</sup></span>
+          <span>Jiaqi Ma<sup>1</sup></span>
+          <span>Langechuan Liu<sup>2†</sup></span>
+        </div>
+        <div class="affiliations">
+          <a href="https://www.ucla.edu/" target="_blank" rel="noreferrer"><sup>1</sup> University of California, Los Angeles</a>
+          <a href="https://www.nvidia.com/en-us/research/" target="_blank" rel="noreferrer"><sup>2</sup> NVIDIA</a>
+          <a href="https://42dot.ai/" target="_blank" rel="noreferrer"><sup>3</sup> 42dot by Hyundai</a>
+          <a href="https://www.fudan.edu.cn/en/" target="_blank" rel="noreferrer"><sup>4</sup> Fudan University</a>
+        </div>
+        <p class="author-note"><sup>*</sup> Equal contribution · <sup>†</sup> Corresponding author · <sup>‡</sup> Work done during an internship at NVIDIA</p>
+      </div>
+
+      <div class="hero-actions" aria-label="Paper resources">
+        <a class="button button-primary" href="https://arxiv.org/abs/2610.11060" target="_blank" rel="noreferrer">Paper <span aria-hidden="true">↗</span></a>
+        <span class="button button-muted" aria-label="Code coming soon">Code <small>coming soon</small></span>
+      </div>
+      <nav class="site-nav" aria-label="Paper sections">
+        <a href="#idea">Overview</a><a href="#system">Method</a><a href="#results">Results</a><a href="#qualitative">Qualitative</a><a href="#citation">BibTeX</a>
+      </nav>
+
+      <div class="metric-rail" aria-label="Key results">
+        <div><strong>91.3</strong><span>PDMS<br>NAVSIM v1</span></div>
+        <div><strong>89.9</strong><span>EPDMS<br>NAVSIM v2</span></div>
+        <div><strong>4s</strong><span>future<br>horizon</span></div>
+        <div><strong>3</strong><span>camera<br>views</span></div>
+      </div>
+    </section>
+
+
+    <section class="section section-light" id="idea" aria-labelledby="idea-title">
+      <div class="section-heading">
+        <p class="section-index">01 / Overview</p>
+        <h2 id="idea-title">What should a driving world model predict?</h2>
+        <p class="section-intro">AffordDrive3D connects future appearance with spatial structure and action-relevant regions. Explore how these predictions relate to planning in the same driving scene.</p>
+      </div>
+      <div class="overview-demo" data-demo data-step="1">
+        <div class="demo-toolbar">
+          <div class="demo-steps" role="tablist" aria-label="Overview animation stages">
+            <button role="tab" id="demo-step-0" aria-controls="demo-panel" aria-selected="false" data-step-button="0"><span>1</span> RGB world-action model</button>
+            <button role="tab" id="demo-step-1" aria-controls="demo-panel" aria-selected="true" data-step-button="1"><span>2</span> AffordDrive3D</button>
+          </div>
+          <button class="play-control" type="button" data-demo-play>Replay</button>
+        </div>
+        <div id="demo-panel" role="tabpanel" aria-labelledby="demo-step-1">
+          <div class="demo-scene">
+            <figure class="demo-input">
+              <figcaption><span class="small-label">Shared input</span><strong>Current scene</strong></figcaption>
+              <img src="assets/scenes/teaser-image1.webp" width="1024" height="576" alt="Current driving scene with a leading vehicle on an urban street.">
+              <p>Multi-view images, ego state<br> Navigation: “keep straight”</p>
+            </figure>
+            <div class="demo-output">
+              <p class="small-label">World predictions</p>
+              <div class="prediction-grid">
+                <figure><img src="assets/scenes/teaser-image4.webp" width="1024" height="576" alt="Predicted future RGB appearance."><figcaption>Future RGB</figcaption></figure>
+                <figure class="added-signal"><img src="assets/scenes/teaser-image8.webp" width="1024" height="576" alt="Predicted depth indicating spatial structure."><figcaption>Depth</figcaption></figure>
+                <figure class="added-signal"><img src="assets/scenes/teaser-image12.webp" width="1024" height="576" alt="Predicted drivable area outlined in green."><figcaption>Drivable area</figcaption></figure>
+                <figure class="added-signal"><img src="assets/scenes/teaser-image16.webp" width="1024" height="576" alt="Predicted collision-critical regions outlined in red."><figcaption>Collision-critical regions</figcaption></figure>
+              </div>
+            </div>
+            <div class="demo-plans">
+              <p class="small-label">Planning outcomes</p>
+              <div class="plan-pair">
+                <figure><figcaption>RGB world-action model</figcaption><img src="assets/scenes/teaser-image17.webp" width="1400" height="1400" alt="DriveVLA-W0 trajectory collides with a vehicle in this example."><p class="outcome outcome-bad">Collision <span>PDMS 0.0</span></p></figure>
+                <figure class="added-plan"><figcaption>AffordDrive3D</figcaption><img src="assets/scenes/teaser-image18.webp" width="1400" height="1400" alt="AffordDrive3D trajectory safely stops behind the leading vehicle."><p class="outcome outcome-good">Safe trajectory <span>PDMS 100.0</span></p></figure>
+              </div>
+              <div class="trajectory-legend"><span class="human">Human</span><span class="rgb">RGB WAM</span><span class="ours">AffordDrive3D</span></div>
+            </div>
+          </div>
+          <div class="demo-explanation" aria-live="polite"><strong data-demo-title>Future geometry and driving affordances.</strong><p data-demo-copy>AffordDrive3D additionally predicts future geometry to capture evolving spatial structure, alongside drivable areas and collision-critical regions relevant to ego motion. Together, these predictions align future world modeling more closely with trajectory planning.</p></div>
+        </div>
+        <p class="figure-note">Staged explanation of the paper’s example, not a real-time inference video. Per-scene PDMS is shown for the two trajectories.</p>
+      </div>
+    </section>
+
+    <section class="section section-dark" id="system" aria-labelledby="system-title">
+      <div class="section-heading section-heading-split reveal">
+        <div>
+          <p class="section-index">02 / Method</p>
+          <h2 id="system-title">The AffordDrive3D framework</h2>
+        </div>
+        <p>A causal VLM processes multi-view images, navigation commands, ego state, and four groups of learnable tokens. Explore each branch to see how it contributes to planning.</p>
+      </div>
+
+      <div class="branch-explorer reveal" data-branch-explorer>
+        <div class="branch-tabs" role="tablist" aria-label="Model branches">
+          <button role="tab" aria-selected="true" aria-controls="branch-panel" id="branch-aff" data-branch="affordance">Affordance</button>
+          <button role="tab" aria-selected="false" aria-controls="branch-panel" id="branch-rgb" data-branch="rgb">RGB world</button>
+          <button role="tab" aria-selected="false" aria-controls="branch-panel" id="branch-geo" data-branch="geometry">Geometry</button>
+          <button role="tab" aria-selected="false" aria-controls="branch-panel" id="branch-act" data-branch="action">Action</button>
+        </div>
+        <div class="branch-panel" id="branch-panel" role="tabpanel" aria-labelledby="branch-aff" tabindex="0">
+          <p class="branch-kicker" data-branch-kicker>What matters for motion</p>
+          <h3 data-branch-title>Temporal affordance forecasting</h3>
+          <p data-branch-copy>Affordance tokens predict drivable-area and collision-critical maps for the current frame and eight future timestamps, linking spatial prediction directly to ego motion.</p>
+          <div class="branch-facts" data-branch-facts><span>27 tokens</span><span>2 dense maps</span><span>0–4 s horizon</span></div>
+        </div>
+      </div>
+
+      <figure class="paper-figure reveal">
+        <button class="image-frame" type="button" data-lightbox="assets/framework.webp" data-caption="AffordDrive3D framework. Auxiliary affordance, RGB, and geometry branches shape a shared causal VLM representation during training; only the action branch is required at inference.">
+          <img src="assets/framework.webp" alt="AffordDrive3D framework with a shared VLM backbone and affordance, RGB world, geometry, and action branches." width="2400" height="1213" loading="lazy">
+          <span class="expand-hint">Open figure <span aria-hidden="true">↗</span></span>
+        </button>
+        <figcaption><span>Figure 2</span> The shared VLM representation is jointly shaped by scene semantics, future appearance, spatial structure, action-relevant regions, and trajectory learning.</figcaption>
+      </figure>
+    </section>
+
+
+    <section class="section section-results" id="results" aria-labelledby="results-title">
+      <div class="section-heading">
+        <p class="section-index">03 / Results</p>
+        <h2 id="results-title">Planning performance on NAVSIM</h2>
+        <p class="section-intro">AffordDrive3D achieves 91.3 PDMS on NAVSIM v1 and 89.9 EPDMS on NAVSIM v2, exceeding every baseline in the paper’s comparisons.</p>
+      </div>
+      <div class="benchmark-grid">
+        <article class="benchmark">
+          <header><span>NAVSIM v1</span><h3>PDMS <small>↑ higher is better</small></h3></header>
+          <div class="score-headline"><strong>91.3</strong><span>AffordDrive3D</span></div>
+          <table><caption>Selected leading methods · NAVSIM v1</caption><thead><tr><th scope="col">Method</th><th scope="col">World supervision</th><th scope="col">PDMS</th></tr></thead><tbody>
+            <tr class="our-result"><th scope="row">AffordDrive3D</th><td>Aff + RGB + Depth</td><td>91.3</td></tr>
+            <tr><th scope="row">ReCogDrive</th><td>—</td><td>90.8</td></tr>
+            <tr><th scope="row">OWMDrive</th><td>3D Occupancy</td><td>90.8</td></tr>
+            <tr><th scope="row">ExploreVLA</th><td>RGB + Depth</td><td>90.4</td></tr>
+            <tr><th scope="row">DriveVLA-W0</th><td>RGB</td><td>90.2</td></tr>
+          </tbody></table>
+        </article>
+        <article class="benchmark">
+          <header><span>NAVSIM v2</span><h3>EPDMS <small>↑ higher is better</small></h3></header>
+          <div class="score-headline"><strong>89.9</strong><span>AffordDrive3D</span></div>
+          <table><caption>Selected leading methods · NAVSIM v2</caption><thead><tr><th scope="col">Method</th><th scope="col">World supervision</th><th scope="col">EPDMS</th></tr></thead><tbody>
+            <tr class="our-result"><th scope="row">AffordDrive3D</th><td>Aff + RGB + Depth</td><td>89.9</td></tr>
+            <tr><th scope="row">ExploreVLA</th><td>RGB + Depth</td><td>88.8</td></tr>
+            <tr><th scope="row">DriveDreamer-Policy</th><td>RGB + Current Depth</td><td>88.7</td></tr>
+            <tr><th scope="row">DriveSuprim</th><td>Not specified*</td><td>87.1</td></tr>
+            <tr><th scope="row">DriveVLA-W0</th><td>RGB</td><td>86.1</td></tr>
+          </tbody></table>
+        </article>
+      </div>
+      <p class="benchmark-note">World supervision follows the paper’s “World Sup.” labels. Aff = driving affordances. *DriveSuprim is included in the v2 results, but its world supervision is not specified in that table.</p>
+    </section>
+
+
+    <section class="section section-qualitative" id="qualitative" aria-labelledby="qualitative-title">
+      <div class="section-heading"><p class="section-index">04 / Qualitative results</p><h2 id="qualitative-title">Driving affordances in context</h2><p class="section-intro">Selected predictions from two driving scenarios, highlighting road structure and collision-relevant regions.</p></div>
+      <article class="qual-case" aria-labelledby="road-case-title">
+        <div class="qual-case-copy"><p class="case-kicker">Narrow curvy road</p><h3 id="road-case-title">Following the drivable road</h3><p>The drivable-area predictions capture the narrow road structure as it curves ahead, providing spatial cues about where the ego vehicle can move.</p></div>
+        <figure class="qual-sequence"><div class="sequence-grid"><span></span><span class="sequence-time">Current</span><span class="sequence-time">+2 s</span><span class="sequence-time">+4 s</span><div class="sequence-label">RGB</div><button class="image-frame" type="button" data-lightbox="assets/scenes/qual-image1.webp" data-caption="RGB, current frame."><img src="assets/scenes/qual-image1.webp" width="1024" height="576" loading="lazy" alt="RGB, current frame."></button><button class="image-frame" type="button" data-lightbox="assets/scenes/qual-image2.webp" data-caption="RGB, 2 seconds ahead."><img src="assets/scenes/qual-image2.webp" width="1024" height="576" loading="lazy" alt="RGB, 2 seconds ahead."></button><button class="image-frame" type="button" data-lightbox="assets/scenes/qual-image3.webp" data-caption="RGB, 4 seconds ahead."><img src="assets/scenes/qual-image3.webp" width="1024" height="576" loading="lazy" alt="RGB, 4 seconds ahead."></button><div class="sequence-label">Drivable area</div><button class="image-frame" type="button" data-lightbox="assets/scenes/qual-image4.webp" data-caption="Drivable area, current frame."><img src="assets/scenes/qual-image4.webp" width="1024" height="576" loading="lazy" alt="Drivable area, current frame."></button><button class="image-frame" type="button" data-lightbox="assets/scenes/qual-image5.webp" data-caption="Drivable area, 2 seconds ahead."><img src="assets/scenes/qual-image5.webp" width="1024" height="576" loading="lazy" alt="Drivable area, 2 seconds ahead."></button><button class="image-frame" type="button" data-lightbox="assets/scenes/qual-image6.webp" data-caption="Drivable area, 4 seconds ahead."><img src="assets/scenes/qual-image6.webp" width="1024" height="576" loading="lazy" alt="Drivable area, 4 seconds ahead."></button></div><figcaption>Drivable-area masks overlaid on the corresponding RGB views. The current RGB frame is the input; later RGB frames are predictions.</figcaption></figure>
+      </article>
+      <article class="qual-case" aria-labelledby="braking-case-title">
+        <div class="qual-case-copy"><p class="case-kicker">Leading vehicle braking</p><h3 id="braking-case-title">Anticipating collision risk</h3><p>Collision-critical predictions highlight the leading vehicle across future horizons. RGB-consistent depth captures its relative distance and the surrounding scene geometry.</p></div>
+        <figure class="qual-sequence"><div class="sequence-grid"><span></span><span class="sequence-time">Current</span><span class="sequence-time">+2 s</span><span class="sequence-time">+4 s</span><div class="sequence-label">RGB</div><button class="image-frame" type="button" data-lightbox="assets/scenes/qual-image11.webp" data-caption="RGB, current frame."><img src="assets/scenes/qual-image11.webp" width="1024" height="576" loading="lazy" alt="RGB, current frame."></button><button class="image-frame" type="button" data-lightbox="assets/scenes/qual-image12.webp" data-caption="RGB, 2 seconds ahead."><img src="assets/scenes/qual-image12.webp" width="1024" height="576" loading="lazy" alt="RGB, 2 seconds ahead."></button><button class="image-frame" type="button" data-lightbox="assets/scenes/qual-image13.webp" data-caption="RGB, 4 seconds ahead."><img src="assets/scenes/qual-image13.webp" width="1024" height="576" loading="lazy" alt="RGB, 4 seconds ahead."></button><div class="sequence-label">Collision-critical</div><button class="image-frame" type="button" data-lightbox="assets/scenes/qual-image14.webp" data-caption="Collision-critical, current frame."><img src="assets/scenes/qual-image14.webp" width="1024" height="576" loading="lazy" alt="Collision-critical, current frame."></button><button class="image-frame" type="button" data-lightbox="assets/scenes/qual-image15.webp" data-caption="Collision-critical, 2 seconds ahead."><img src="assets/scenes/qual-image15.webp" width="1024" height="576" loading="lazy" alt="Collision-critical, 2 seconds ahead."></button><button class="image-frame" type="button" data-lightbox="assets/scenes/qual-image16.webp" data-caption="Collision-critical, 4 seconds ahead."><img src="assets/scenes/qual-image16.webp" width="1024" height="576" loading="lazy" alt="Collision-critical, 4 seconds ahead."></button><div class="sequence-label">Depth</div><button class="image-frame" type="button" data-lightbox="assets/scenes/qual-image17.webp" data-caption="Depth, current frame."><img src="assets/scenes/qual-image17.webp" width="1024" height="576" loading="lazy" alt="Depth, current frame."></button><button class="image-frame" type="button" data-lightbox="assets/scenes/qual-image18.webp" data-caption="Depth, 2 seconds ahead."><img src="assets/scenes/qual-image18.webp" width="1024" height="576" loading="lazy" alt="Depth, 2 seconds ahead."></button><button class="image-frame" type="button" data-lightbox="assets/scenes/qual-image19.webp" data-caption="Depth, 4 seconds ahead."><img src="assets/scenes/qual-image19.webp" width="1024" height="576" loading="lazy" alt="Depth, 4 seconds ahead."></button></div><figcaption>Collision-critical regions and predicted depth for the braking scenario. The current RGB frame is the input; later RGB frames are predictions.</figcaption></figure>
+      </article>
+    </section>
+
+    <section class="section section-citation" id="citation" aria-labelledby="citation-title">
+      <div class="citation-copy reveal">
+        <p class="section-index">05 / Citation</p>
+        <h2 id="citation-title">Citation</h2>
+        <p>If AffordDrive3D supports your research, please cite the arXiv paper.</p>
+        <div class="citation-actions">
+          <a class="button button-primary" href="https://arxiv.org/abs/2610.11060" target="_blank" rel="noreferrer">arXiv:2610.11060</a>
+          <button class="button button-ghost" type="button" data-copy-citation>Copy BibTeX</button>
+        </div>
+      </div>
+      <div class="bibtex-card reveal reveal-delay">
+        <div><span>BibTeX</span><span data-copy-status aria-live="polite">Ready to copy</span></div>
+        <pre><code id="bibtex">@misc{cai2026afforddrive3d,
+  title={AffordDrive3D: Affordance-Aware World-Action
+         Modeling with Spatial Understanding},
+  author={Cai, Tianhui and Sun, Xinglong and Fang, Chao
+          and Li, Zhenxin and Song, Rui and Alvarez, Jose M.
+          and Mao, Yunxiang and Ma, Jiaqi and Liu, Langechuan},
+  year={2026},
+  eprint={2610.11060},
+  archivePrefix={arXiv},
+  primaryClass={cs.CV},
+  url={https://arxiv.org/abs/2610.11060}
+}</code></pre>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <a class="brand" href="#top" aria-label="Back to top">
+      <svg viewBox="0 0 38 38" aria-hidden="true"><path d="M4 31 17 6h4l13 25h-7l-2.4-5H13.2L11 31H4Z"/><path class="mark-cut" d="m16 20 3-7 3.2 7H16Z"/></svg>
+      <span>AffordDrive<span>3D</span></span>
+    </a>
+    <p>Affordance-aware world-action modeling with spatial understanding.</p>
+    <a href="#top">Back to top ↑</a>
+  </footer>
+
+  <dialog class="lightbox" data-lightbox-dialog aria-label="Expanded paper figure">
+    <button class="lightbox-close" type="button" data-lightbox-close aria-label="Close expanded figure">×</button>
+    <div class="lightbox-inner">
+      <img src="" alt="">
+      <p></p>
+    </div>
+  </dialog>
+
+  <noscript><style>.reveal{opacity:1;transform:none}</style></noscript>
+</body>
+</html>

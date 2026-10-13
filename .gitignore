@@ -1,0 +1,5 @@
+.DS_Store
+work/
+*.tar.gz
+.openai/
+github-pages-root/
