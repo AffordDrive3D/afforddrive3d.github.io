@@ -67,25 +67,23 @@
       <div class="section-heading">
         <p class="section-index">01 / Overview</p>
         <h2 id="idea-title">What should a driving world model predict?</h2>
-        <p class="section-intro">Compare RGB-only future appearance prediction with AffordDrive3D’s joint modeling of future geometry and action-relevant regions.</p>
       </div>
       <div class="overview-demo" data-demo data-step="1">
         <div id="demo-panel" role="tabpanel" aria-labelledby="demo-step-1">
           <div class="demo-selector">
             <div class="model-contrast" role="tablist" aria-label="Compare world-model supervision">
               <button class="contrast-card contrast-rgb" type="button" role="tab" id="demo-step-0" aria-controls="demo-panel" aria-selected="false" data-step-button="0">
-              <span class="contrast-model">RGB-only</span>
-              <strong>Future scene appearance</strong>
-              <small>RGB prediction</small>
+              <span class="contrast-model">RGB-only world-action model</span>
+              <strong>Future appearance</strong>
+              <small>Predicts future RGB frames</small>
               </button>
               <div class="contrast-versus" aria-hidden="true">vs.</div>
               <button class="contrast-card contrast-ours" type="button" role="tab" id="demo-step-1" aria-controls="demo-panel" aria-selected="true" data-step-button="1">
-              <span class="contrast-model">AffordDrive3D</span>
-              <strong>Future geometry + driving affordances</strong>
-              <small>RGB-conditioned depth · drivable areas · collision-critical regions</small>
+              <span class="contrast-model">Affordance- and geometry-aware world-action model</span>
+              <strong>AffordDrive3D</strong>
+              <small>Future geometry · drivable areas · collision-critical regions</small>
               </button>
             </div>
-            <button class="play-control" type="button" data-demo-play>Replay</button>
           </div>
           <div class="demo-scene">
             <figure class="demo-input">
@@ -111,9 +109,8 @@
               <div class="trajectory-legend"><span class="human">Human</span><span class="rgb">RGB WAM</span><span class="ours">AffordDrive3D</span></div>
             </div>
           </div>
-          <div class="demo-explanation" aria-live="polite"><span class="explanation-label" data-demo-label>AffordDrive3D</span><strong data-demo-title>World modeling is aligned more closely with planning.</strong><p data-demo-copy>AffordDrive3D predicts future geometry to model evolving spatial structure and driving affordances to identify regions critical to ego motion. These signals shape the shared representation used for trajectory planning.</p></div>
+          <div class="demo-explanation" aria-live="polite"><span class="explanation-label" data-demo-label>AffordDrive3D</span><strong data-demo-title>Future geometry and driving affordances</strong><p data-demo-copy>AffordDrive3D predicts future geometry to model evolving spatial structure and driving affordances to identify regions critical to ego motion. These signals shape the shared representation used for trajectory planning.</p></div>
         </div>
-        <p class="figure-note">Violet denotes RGB-only appearance modeling; blue denotes AffordDrive3D’s added spatial signals. This is a staged explanation of the paper’s example, not a real-time inference video. Per-scene PDMS is shown for the two trajectories.</p>
       </div>
     </section>
 
@@ -137,7 +134,7 @@
           <p class="branch-kicker" data-branch-kicker>What matters for motion</p>
           <h3 data-branch-title>Temporal affordance forecasting</h3>
           <p data-branch-copy>Affordance tokens predict drivable-area and collision-critical maps for the current frame and eight future timestamps, linking spatial prediction directly to ego motion.</p>
-          <div class="branch-facts" data-branch-facts><span>27 tokens</span><span>2 dense maps</span><span>0–4 s horizon</span></div>
+          <div class="branch-facts" data-branch-facts><span>27 tokens</span><span>2 dense maps</span></div>
         </div>
       </div>
 
@@ -155,7 +152,7 @@
       <div class="section-heading">
         <p class="section-index">03 / Results</p>
         <h2 id="results-title">Planning performance on NAVSIM</h2>
-        <p class="section-intro">AffordDrive3D achieves 91.3 PDMS on NAVSIM v1 and 89.9 EPDMS on NAVSIM v2, exceeding every baseline in the paper’s comparisons.</p>
+        <p class="section-intro">AffordDrive3D achieves 91.3 PDMS on NAVSIM v1 and 89.9 EPDMS on NAVSIM v2.</p>
       </div>
       <div class="benchmark-grid">
         <article class="benchmark">
@@ -186,14 +183,54 @@
 
 
     <section class="section section-qualitative" id="qualitative" aria-labelledby="qualitative-title">
-      <div class="section-heading"><p class="section-index">04 / Qualitative results</p><h2 id="qualitative-title">Driving affordances in context</h2><p class="section-intro">Selected predictions from two driving scenarios, highlighting road structure and collision-relevant regions.</p></div>
+      <div class="section-heading">
+        <p class="section-index">04 / Qualitative results</p>
+        <h2 id="qualitative-title">Challenging driving scenarios</h2>
+        <p class="section-intro">AffordDrive3D models action-relevant space in challenging scenarios, including narrow curvy roads and braking vehicles.</p>
+      </div>
+
       <article class="qual-case" aria-labelledby="road-case-title">
-        <div class="qual-case-copy"><p class="case-kicker">Narrow curvy road</p><h3 id="road-case-title">Following the drivable road</h3><p>The drivable-area predictions capture the narrow road structure as it curves ahead, providing spatial cues about where the ego vehicle can move.</p></div>
-        <figure class="qual-sequence"><div class="sequence-grid"><span></span><span class="sequence-time">Current</span><span class="sequence-time">+2 s</span><span class="sequence-time">+4 s</span><div class="sequence-label">RGB</div><button class="image-frame" type="button" data-lightbox="assets/scenes/qual-image1.webp" data-caption="RGB, current frame."><img src="assets/scenes/qual-image1.webp" width="1024" height="576" loading="lazy" alt="RGB, current frame."></button><button class="image-frame" type="button" data-lightbox="assets/scenes/qual-image2.webp" data-caption="RGB, 2 seconds ahead."><img src="assets/scenes/qual-image2.webp" width="1024" height="576" loading="lazy" alt="RGB, 2 seconds ahead."></button><button class="image-frame" type="button" data-lightbox="assets/scenes/qual-image3.webp" data-caption="RGB, 4 seconds ahead."><img src="assets/scenes/qual-image3.webp" width="1024" height="576" loading="lazy" alt="RGB, 4 seconds ahead."></button><div class="sequence-label">Drivable area</div><button class="image-frame" type="button" data-lightbox="assets/scenes/qual-image4.webp" data-caption="Drivable area, current frame."><img src="assets/scenes/qual-image4.webp" width="1024" height="576" loading="lazy" alt="Drivable area, current frame."></button><button class="image-frame" type="button" data-lightbox="assets/scenes/qual-image5.webp" data-caption="Drivable area, 2 seconds ahead."><img src="assets/scenes/qual-image5.webp" width="1024" height="576" loading="lazy" alt="Drivable area, 2 seconds ahead."></button><button class="image-frame" type="button" data-lightbox="assets/scenes/qual-image6.webp" data-caption="Drivable area, 4 seconds ahead."><img src="assets/scenes/qual-image6.webp" width="1024" height="576" loading="lazy" alt="Drivable area, 4 seconds ahead."></button></div><figcaption>Drivable-area masks overlaid on the corresponding RGB views. The current RGB frame is the input; later RGB frames are predictions.</figcaption></figure>
+        <div class="qual-case-copy">
+          <p class="case-kicker">Narrow curvy road</p>
+          <h3 id="road-case-title">Following the road through a tight curve</h3>
+          <p>Future drivable-area predictions trace the road as it bends, connecting the evolving scene structure to trajectory planning.</p>
+        </div>
+        <div class="scenario-visuals">
+          <figure class="qual-sequence">
+            <div class="sequence-grid"><span></span><span class="sequence-time">Current</span><span class="sequence-time">+2 s</span><span class="sequence-time">+4 s</span><div class="sequence-label">RGB</div><button class="image-frame" type="button" data-lightbox="assets/scenes/qual-image1.webp" data-caption="RGB, current frame."><img src="assets/scenes/qual-image1.webp" width="1024" height="576" loading="lazy" alt="RGB, current frame."></button><button class="image-frame" type="button" data-lightbox="assets/scenes/qual-image2.webp" data-caption="RGB, 2 seconds ahead."><img src="assets/scenes/qual-image2.webp" width="1024" height="576" loading="lazy" alt="RGB, 2 seconds ahead."></button><button class="image-frame" type="button" data-lightbox="assets/scenes/qual-image3.webp" data-caption="RGB, 4 seconds ahead."><img src="assets/scenes/qual-image3.webp" width="1024" height="576" loading="lazy" alt="RGB, 4 seconds ahead."></button><div class="sequence-label">Drivable area</div><button class="image-frame" type="button" data-lightbox="assets/scenes/qual-image4.webp" data-caption="Drivable area, current frame."><img src="assets/scenes/qual-image4.webp" width="1024" height="576" loading="lazy" alt="Drivable area, current frame."></button><button class="image-frame" type="button" data-lightbox="assets/scenes/qual-image5.webp" data-caption="Drivable area, 2 seconds ahead."><img src="assets/scenes/qual-image5.webp" width="1024" height="576" loading="lazy" alt="Drivable area, 2 seconds ahead."></button><button class="image-frame" type="button" data-lightbox="assets/scenes/qual-image6.webp" data-caption="Drivable area, 4 seconds ahead."><img src="assets/scenes/qual-image6.webp" width="1024" height="576" loading="lazy" alt="Drivable area, 4 seconds ahead."></button></div>
+            <figcaption>The current RGB frame is the input; later RGB frames and drivable areas are predictions.</figcaption>
+          </figure>
+          <div class="scenario-trajectories" aria-label="Trajectory comparison for the narrow curvy road">
+            <p>Trajectory comparison</p>
+            <div class="trajectory-strip">
+              <figure class="trajectory-mini trajectory-mini-ours"><button class="image-frame" type="button" data-lightbox="assets/scenes/qual-image7.webp" data-caption="AffordDrive3D trajectory on the narrow curvy road."><img src="assets/scenes/qual-image7.webp" width="422" height="606" loading="lazy" alt="AffordDrive3D trajectory on the narrow curvy road."></button><figcaption>AffordDrive3D</figcaption></figure>
+              <figure class="trajectory-mini"><button class="image-frame" type="button" data-lightbox="assets/scenes/qual-image8.webp" data-caption="RGB world-action model trajectory on the narrow curvy road."><img src="assets/scenes/qual-image8.webp" width="422" height="606" loading="lazy" alt="RGB world-action model trajectory on the narrow curvy road."></button><figcaption>RGB WAM</figcaption></figure>
+              <figure class="trajectory-mini"><button class="image-frame" type="button" data-lightbox="assets/scenes/qual-image9.webp" data-caption="Action-only trajectory on the narrow curvy road."><img src="assets/scenes/qual-image9.webp" width="422" height="606" loading="lazy" alt="Action-only trajectory on the narrow curvy road."></button><figcaption>Action-only</figcaption></figure>
+            </div>
+          </div>
+        </div>
       </article>
+
       <article class="qual-case" aria-labelledby="braking-case-title">
-        <div class="qual-case-copy"><p class="case-kicker">Leading vehicle braking</p><h3 id="braking-case-title">Anticipating collision risk</h3><p>Collision-critical predictions highlight the leading vehicle across future horizons. RGB-consistent depth captures its relative distance and the surrounding scene geometry.</p></div>
-        <figure class="qual-sequence"><div class="sequence-grid"><span></span><span class="sequence-time">Current</span><span class="sequence-time">+2 s</span><span class="sequence-time">+4 s</span><div class="sequence-label">RGB</div><button class="image-frame" type="button" data-lightbox="assets/scenes/qual-image11.webp" data-caption="RGB, current frame."><img src="assets/scenes/qual-image11.webp" width="1024" height="576" loading="lazy" alt="RGB, current frame."></button><button class="image-frame" type="button" data-lightbox="assets/scenes/qual-image12.webp" data-caption="RGB, 2 seconds ahead."><img src="assets/scenes/qual-image12.webp" width="1024" height="576" loading="lazy" alt="RGB, 2 seconds ahead."></button><button class="image-frame" type="button" data-lightbox="assets/scenes/qual-image13.webp" data-caption="RGB, 4 seconds ahead."><img src="assets/scenes/qual-image13.webp" width="1024" height="576" loading="lazy" alt="RGB, 4 seconds ahead."></button><div class="sequence-label">Collision-critical</div><button class="image-frame" type="button" data-lightbox="assets/scenes/qual-image14.webp" data-caption="Collision-critical, current frame."><img src="assets/scenes/qual-image14.webp" width="1024" height="576" loading="lazy" alt="Collision-critical, current frame."></button><button class="image-frame" type="button" data-lightbox="assets/scenes/qual-image15.webp" data-caption="Collision-critical, 2 seconds ahead."><img src="assets/scenes/qual-image15.webp" width="1024" height="576" loading="lazy" alt="Collision-critical, 2 seconds ahead."></button><button class="image-frame" type="button" data-lightbox="assets/scenes/qual-image16.webp" data-caption="Collision-critical, 4 seconds ahead."><img src="assets/scenes/qual-image16.webp" width="1024" height="576" loading="lazy" alt="Collision-critical, 4 seconds ahead."></button><div class="sequence-label">Depth</div><button class="image-frame" type="button" data-lightbox="assets/scenes/qual-image17.webp" data-caption="Depth, current frame."><img src="assets/scenes/qual-image17.webp" width="1024" height="576" loading="lazy" alt="Depth, current frame."></button><button class="image-frame" type="button" data-lightbox="assets/scenes/qual-image18.webp" data-caption="Depth, 2 seconds ahead."><img src="assets/scenes/qual-image18.webp" width="1024" height="576" loading="lazy" alt="Depth, 2 seconds ahead."></button><button class="image-frame" type="button" data-lightbox="assets/scenes/qual-image19.webp" data-caption="Depth, 4 seconds ahead."><img src="assets/scenes/qual-image19.webp" width="1024" height="576" loading="lazy" alt="Depth, 4 seconds ahead."></button></div><figcaption>Collision-critical regions and predicted depth for the braking scenario. The current RGB frame is the input; later RGB frames are predictions.</figcaption></figure>
+        <div class="qual-case-copy">
+          <p class="case-kicker">Leading vehicle braking</p>
+          <h3 id="braking-case-title">Responding to a braking vehicle</h3>
+          <p>Collision-critical predictions track the leading vehicle across future frames, while RGB-conditioned depth represents its relative distance and surrounding geometry.</p>
+        </div>
+        <div class="scenario-visuals">
+          <figure class="qual-sequence">
+            <div class="sequence-grid"><span></span><span class="sequence-time">Current</span><span class="sequence-time">+2 s</span><span class="sequence-time">+4 s</span><div class="sequence-label">RGB</div><button class="image-frame" type="button" data-lightbox="assets/scenes/qual-image11.webp" data-caption="RGB, current frame."><img src="assets/scenes/qual-image11.webp" width="1024" height="576" loading="lazy" alt="RGB, current frame."></button><button class="image-frame" type="button" data-lightbox="assets/scenes/qual-image12.webp" data-caption="RGB, 2 seconds ahead."><img src="assets/scenes/qual-image12.webp" width="1024" height="576" loading="lazy" alt="RGB, 2 seconds ahead."></button><button class="image-frame" type="button" data-lightbox="assets/scenes/qual-image13.webp" data-caption="RGB, 4 seconds ahead."><img src="assets/scenes/qual-image13.webp" width="1024" height="576" loading="lazy" alt="RGB, 4 seconds ahead."></button><div class="sequence-label">Collision-critical</div><button class="image-frame" type="button" data-lightbox="assets/scenes/qual-image14.webp" data-caption="Collision-critical, current frame."><img src="assets/scenes/qual-image14.webp" width="1024" height="576" loading="lazy" alt="Collision-critical, current frame."></button><button class="image-frame" type="button" data-lightbox="assets/scenes/qual-image15.webp" data-caption="Collision-critical, 2 seconds ahead."><img src="assets/scenes/qual-image15.webp" width="1024" height="576" loading="lazy" alt="Collision-critical, 2 seconds ahead."></button><button class="image-frame" type="button" data-lightbox="assets/scenes/qual-image16.webp" data-caption="Collision-critical, 4 seconds ahead."><img src="assets/scenes/qual-image16.webp" width="1024" height="576" loading="lazy" alt="Collision-critical, 4 seconds ahead."></button><div class="sequence-label">Depth</div><button class="image-frame" type="button" data-lightbox="assets/scenes/qual-image17.webp" data-caption="Depth, current frame."><img src="assets/scenes/qual-image17.webp" width="1024" height="576" loading="lazy" alt="Depth, current frame."></button><button class="image-frame" type="button" data-lightbox="assets/scenes/qual-image18.webp" data-caption="Depth, 2 seconds ahead."><img src="assets/scenes/qual-image18.webp" width="1024" height="576" loading="lazy" alt="Depth, 2 seconds ahead."></button><button class="image-frame" type="button" data-lightbox="assets/scenes/qual-image19.webp" data-caption="Depth, 4 seconds ahead."><img src="assets/scenes/qual-image19.webp" width="1024" height="576" loading="lazy" alt="Depth, 4 seconds ahead."></button></div>
+            <figcaption>The current RGB frame is the input; later RGB, collision-critical, and depth frames are predictions.</figcaption>
+          </figure>
+          <div class="scenario-trajectories" aria-label="Trajectory comparison for the braking scenario">
+            <p>Trajectory comparison</p>
+            <div class="trajectory-strip trajectory-strip-tall">
+              <figure class="trajectory-mini trajectory-mini-ours"><button class="image-frame" type="button" data-lightbox="assets/scenes/qual-image20.webp" data-caption="AffordDrive3D trajectory for the braking scenario."><img src="assets/scenes/qual-image20.webp" width="422" height="1033" loading="lazy" alt="AffordDrive3D trajectory for the braking scenario."></button><figcaption>AffordDrive3D</figcaption></figure>
+              <figure class="trajectory-mini"><button class="image-frame" type="button" data-lightbox="assets/scenes/qual-image21.webp" data-caption="RGB world-action model trajectory for the braking scenario."><img src="assets/scenes/qual-image21.webp" width="422" height="1033" loading="lazy" alt="RGB world-action model trajectory for the braking scenario."></button><figcaption>RGB WAM</figcaption></figure>
+              <figure class="trajectory-mini"><button class="image-frame" type="button" data-lightbox="assets/scenes/qual-image22.webp" data-caption="Action-only trajectory for the braking scenario."><img src="assets/scenes/qual-image22.webp" width="422" height="1033" loading="lazy" alt="Action-only trajectory for the braking scenario."></button><figcaption>Action-only</figcaption></figure>
+            </div>
+          </div>
+        </div>
       </article>
     </section>
 

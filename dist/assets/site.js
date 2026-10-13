@@ -44,7 +44,7 @@
       kicker: 'What matters for motion',
       title: 'Temporal affordance forecasting',
       copy: 'Affordance tokens predict drivable-area and collision-critical maps for the current frame and eight future timestamps, linking spatial prediction directly to ego motion.',
-      facts: ['27 tokens', '2 dense maps', '0–4 s horizon']
+      facts: ['27 tokens', '2 dense maps']
     },
     rgb: {
       kicker: 'How the scene may evolve',

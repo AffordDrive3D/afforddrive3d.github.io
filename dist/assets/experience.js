@@ -1,13 +1,11 @@
 (() => {
   const demo = document.querySelector('[data-demo]');
   const steps = [...demo.querySelectorAll('[data-step-button]')];
-  const play = demo.querySelector('[data-demo-play]');
-  const reduced = window.matchMedia('(prefers-reduced-motion: reduce)');
   const text = [
-    ['RGB-only', 'RGB-based world-action models primarily capture future scene evolution through appearance prediction. Spatial structure and regions relevant to ego motion remain implicit.', 'Future scene evolution through appearance.'],
-    ['AffordDrive3D', 'AffordDrive3D predicts future geometry to model evolving spatial structure and driving affordances to identify regions critical to ego motion. These signals shape the shared representation used for trajectory planning.', 'World modeling is aligned more closely with planning.']
+    ['RGB-only', 'RGB-based world-action models predict how the scene will look in future frames. Geometry and regions relevant to ego motion are not modeled explicitly.', 'Predicting future scene appearance'],
+    ['AffordDrive3D', 'AffordDrive3D predicts future geometry to model evolving spatial structure and driving affordances to identify regions critical to ego motion. These signals shape the shared representation used for trajectory planning.', 'Future geometry and driving affordances']
   ];
-  let step = 1, timer = null, playing = false, interacted = false;
+  let step = 1;
   function renderStep(next) {
     step = next; demo.dataset.step = String(step);
     steps.forEach((button, i) => { button.setAttribute('aria-selected', String(i === step)); button.tabIndex = i === step ? 0 : -1; });
@@ -18,21 +16,7 @@
     demo.querySelectorAll('.added-signal').forEach(el => el.setAttribute('aria-hidden', String(step < 1)));
     demo.querySelector('.added-plan').setAttribute('aria-hidden', String(step < 1));
   }
-  function stop() { clearTimeout(timer); timer = null; playing = false; play.textContent = step === 1 ? 'Replay' : 'Play'; }
-  function advance() {
-    timer = setTimeout(() => { if (!playing) return; renderStep(step + 1); if (step === 1) stop(); else advance(); }, 3800);
-  }
-  function start(restart = false) { stop(); if (restart || step === 1) renderStep(0); playing = true; play.textContent = 'Pause'; advance(); }
-  steps.forEach((button, i) => button.addEventListener('click', () => { interacted = true; stop(); renderStep(i); play.textContent = i === 1 ? 'Replay' : 'Play'; }));
-  play.addEventListener('click', () => { interacted = true; if (playing) stop(); else start(); });
-  if (!reduced.matches && 'IntersectionObserver' in window) {
-    const observer = new IntersectionObserver(entries => {
-      if (entries.some(entry => entry.isIntersecting) && !interacted) { interacted = true; start(true); observer.disconnect(); }
-    }, {threshold: .3});
-    observer.observe(demo);
-  }
-  document.addEventListener('visibilitychange', () => { if (document.hidden) stop(); });
-  reduced.addEventListener('change', () => { if (reduced.matches) { stop(); renderStep(1); } });
+  steps.forEach((button, i) => button.addEventListener('click', () => renderStep(i)));
   renderStep(1);
 
   // Keyboard navigation follows the selected tab within each independent group.
