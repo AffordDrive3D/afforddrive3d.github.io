@@ -66,6 +66,7 @@
 .explanation-label { display:block; margin-bottom:4px; color:var(--ours); font-size:9px; font-weight:750; letter-spacing:.1em; text-transform:uppercase; }
 .overview-demo[data-step="0"] .explanation-label { color:var(--rgb); }
 .demo-explanation strong { font-size:17px; font-weight:600; }.demo-explanation p { max-width:900px; margin:7px 0 0; font-size:14px; color:var(--muted); }
+.demo-explanation p strong,.qual-case-copy>p strong,.section-intro strong { color:var(--ink); font-size:inherit; font-weight:650; }
 .figure-note { margin:16px 0; font-size:11px; line-height:1.65; color:var(--muted); }
 .benchmark-grid { display:grid; grid-template-columns:1fr 1fr; gap:30px; }
 .benchmark { padding:26px; border:1px solid var(--line); border-radius:8px; }

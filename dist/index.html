@@ -109,7 +109,7 @@
               <div class="trajectory-legend"><span class="human">Human</span><span class="rgb">RGB WAM</span><span class="ours">AffordDrive3D</span></div>
             </div>
           </div>
-          <div class="demo-explanation" aria-live="polite"><span class="explanation-label" data-demo-label>AffordDrive3D</span><strong data-demo-title>Future geometry and driving affordances</strong><p data-demo-copy>AffordDrive3D predicts future geometry to model evolving spatial structure and driving affordances to identify regions critical to ego motion. Together, these signals make future world modeling explicitly action-relevant for trajectory planning.</p></div>
+          <div class="demo-explanation" aria-live="polite"><span class="explanation-label" data-demo-label>AffordDrive3D</span><strong data-demo-title>Future geometry and driving affordances</strong><p data-demo-copy>AffordDrive3D predicts <strong>future geometry</strong> to model evolving spatial structure and <strong>driving affordances</strong> to identify regions critical to ego motion. Together, these signals make future world modeling explicitly <strong>action-relevant</strong> for trajectory planning.</p></div>
         </div>
       </div>
     </section>
@@ -186,14 +186,14 @@
       <div class="section-heading">
         <p class="section-index">04 / Qualitative results</p>
         <h2 id="qualitative-title">Challenging driving scenarios</h2>
-        <p class="section-intro">AffordDrive3D models action-relevant space in challenging scenarios, including narrow curvy roads and braking vehicles.</p>
+        <p class="section-intro">AffordDrive3D models <strong>action-relevant space</strong> in challenging scenarios, including narrow curvy roads and braking vehicles.</p>
       </div>
 
       <article class="qual-case" aria-labelledby="road-case-title">
         <div class="qual-case-copy">
           <p class="case-kicker">Narrow curvy road</p>
           <h3 id="road-case-title">Following the road through a tight curve</h3>
-          <p>Future drivable-area predictions trace the road as it bends, connecting the evolving scene structure to trajectory planning.</p>
+          <p>AffordDrive3D’s <strong>drivable-area forecasts</strong> capture the narrow road structure over time, so its trajectory <strong>remains near the lane center</strong>. The RGB WAM and action-only baselines both <strong>go off-road</strong>.</p>
           <div class="scenario-trajectories" aria-label="Trajectory comparison for the narrow curvy road">
             <p>Trajectory comparison</p>
             <div class="trajectory-strip">
@@ -216,7 +216,7 @@
         <div class="qual-case-copy">
           <p class="case-kicker">Leading vehicle braking</p>
           <h3 id="braking-case-title">Responding to a braking vehicle</h3>
-          <p>Collision-critical predictions track the leading vehicle across future frames, while RGB-conditioned depth represents its relative distance and surrounding geometry.</p>
+          <p>AffordDrive3D’s <strong>collision-critical forecasts</strong> track the leading vehicle across future horizons, while RGB-consistent depth captures its relative distance and surrounding geometry. AffordDrive3D <strong>maintains a safe distance</strong>, while <strong>both baselines collide</strong>.</p>
           <div class="scenario-trajectories" aria-label="Trajectory comparison for the braking scenario">
             <p>Trajectory comparison</p>
             <div class="trajectory-strip trajectory-strip-tall">
