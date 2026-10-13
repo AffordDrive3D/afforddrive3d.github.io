@@ -4,16 +4,17 @@
   const play = demo.querySelector('[data-demo-play]');
   const reduced = window.matchMedia('(prefers-reduced-motion: reduce)');
   const text = [
-    ['Future scene appearance.', 'RGB-based world-action models primarily capture how a scene evolves through appearance prediction. Spatial structure and the regions most relevant to ego motion remain implicit.'],
-    ['Future geometry and driving affordances.', 'AffordDrive3D additionally predicts future geometry to capture evolving spatial structure, alongside drivable areas and collision-critical regions relevant to ego motion. Together, these predictions align future world modeling more closely with trajectory planning.']
+    ['RGB-only', 'Future appearance is explicitly supervised, while geometry and action-relevant regions remain implicit when producing the trajectory.', 'What will the scene look like?'],
+    ['AffordDrive3D', 'Alongside future RGB, AffordDrive3D predicts depth, drivable areas, and collision-critical regions. These complementary targets shape the shared representation used for trajectory planning.', 'Planning-relevant structure becomes explicit.']
   ];
   let step = 1, timer = null, playing = false, interacted = false;
   function renderStep(next) {
     step = next; demo.dataset.step = String(step);
     steps.forEach((button, i) => { button.setAttribute('aria-selected', String(i === step)); button.tabIndex = i === step ? 0 : -1; });
     demo.querySelector('[role="tabpanel"]').setAttribute('aria-labelledby', steps[step].id);
-    demo.querySelector('[data-demo-title]').textContent = text[step][0];
+    demo.querySelector('[data-demo-label]').textContent = text[step][0];
     demo.querySelector('[data-demo-copy]').textContent = text[step][1];
+    demo.querySelector('[data-demo-title]').textContent = text[step][2];
     demo.querySelectorAll('.added-signal').forEach(el => el.setAttribute('aria-hidden', String(step < 1)));
     demo.querySelector('.added-plan').setAttribute('aria-hidden', String(step < 1));
   }

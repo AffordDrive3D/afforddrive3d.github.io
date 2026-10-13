@@ -67,17 +67,30 @@
       <div class="section-heading">
         <p class="section-index">01 / Overview</p>
         <h2 id="idea-title">What should a driving world model predict?</h2>
-        <p class="section-intro">AffordDrive3D connects future appearance with spatial structure and action-relevant regions. Explore how these predictions relate to planning in the same driving scene.</p>
+        <p class="section-intro">Compare what is explicitly supervised in RGB-only world modeling with the spatial and action-relevant signals introduced by AffordDrive3D.</p>
       </div>
       <div class="overview-demo" data-demo data-step="1">
         <div class="demo-toolbar">
           <div class="demo-steps" role="tablist" aria-label="Overview animation stages">
-            <button role="tab" id="demo-step-0" aria-controls="demo-panel" aria-selected="false" data-step-button="0"><span>1</span> RGB world-action model</button>
+            <button role="tab" id="demo-step-0" aria-controls="demo-panel" aria-selected="false" data-step-button="0"><span>1</span> RGB-only world modeling</button>
             <button role="tab" id="demo-step-1" aria-controls="demo-panel" aria-selected="true" data-step-button="1"><span>2</span> AffordDrive3D</button>
           </div>
           <button class="play-control" type="button" data-demo-play>Replay</button>
         </div>
         <div id="demo-panel" role="tabpanel" aria-labelledby="demo-step-1">
+          <div class="model-contrast" aria-label="Comparison of explicitly supervised world signals">
+            <div class="contrast-card contrast-rgb">
+              <span class="contrast-model">RGB-only</span>
+              <strong>Future appearance</strong>
+              <small>RGB supervision</small>
+            </div>
+            <div class="contrast-versus" aria-hidden="true">vs.</div>
+            <div class="contrast-card contrast-ours">
+              <span class="contrast-model">AffordDrive3D</span>
+              <strong>Appearance + spatial understanding</strong>
+              <small>RGB · depth · driving affordances</small>
+            </div>
+          </div>
           <div class="demo-scene">
             <figure class="demo-input">
               <figcaption><span class="small-label">Shared input</span><strong>Current scene</strong></figcaption>
@@ -87,24 +100,24 @@
             <div class="demo-output">
               <p class="small-label">World predictions</p>
               <div class="prediction-grid">
-                <figure><img src="assets/scenes/teaser-image4.webp" width="1024" height="576" alt="Predicted future RGB appearance."><figcaption>Future RGB</figcaption></figure>
-                <figure class="added-signal"><img src="assets/scenes/teaser-image8.webp" width="1024" height="576" alt="Predicted depth indicating spatial structure."><figcaption>Depth</figcaption></figure>
-                <figure class="added-signal"><img src="assets/scenes/teaser-image12.webp" width="1024" height="576" alt="Predicted drivable area outlined in green."><figcaption>Drivable area</figcaption></figure>
-                <figure class="added-signal"><img src="assets/scenes/teaser-image16.webp" width="1024" height="576" alt="Predicted collision-critical regions outlined in red."><figcaption>Collision-critical regions</figcaption></figure>
+                <figure class="rgb-signal"><img src="assets/scenes/teaser-image4.webp" width="1024" height="576" alt="Predicted future RGB appearance."><figcaption><span>Future RGB</span><em>appearance</em></figcaption></figure>
+                <figure class="added-signal"><img src="assets/scenes/teaser-image8.webp" width="1024" height="576" alt="Predicted depth indicating spatial structure."><figcaption><span>Depth</span><em>geometry</em></figcaption></figure>
+                <figure class="added-signal"><img src="assets/scenes/teaser-image12.webp" width="1024" height="576" alt="Predicted drivable area outlined in green."><figcaption><span>Drivable area</span><em>affordance</em></figcaption></figure>
+                <figure class="added-signal"><img src="assets/scenes/teaser-image16.webp" width="1024" height="576" alt="Predicted collision-critical regions outlined in red."><figcaption><span>Collision-critical</span><em>affordance</em></figcaption></figure>
               </div>
             </div>
             <div class="demo-plans">
               <p class="small-label">Planning outcomes</p>
               <div class="plan-pair">
-                <figure><figcaption>RGB world-action model</figcaption><img src="assets/scenes/teaser-image17.webp" width="1400" height="1400" alt="DriveVLA-W0 trajectory collides with a vehicle in this example."><p class="outcome outcome-bad">Collision <span>PDMS 0.0</span></p></figure>
+                <figure class="rgb-plan"><figcaption><span class="method-dot"></span>RGB-only model</figcaption><img src="assets/scenes/teaser-image17.webp" width="1400" height="1400" alt="DriveVLA-W0 trajectory collides with a vehicle in this example."><p class="outcome outcome-bad">Collision <span>PDMS 0.0</span></p></figure>
                 <figure class="added-plan"><figcaption>AffordDrive3D</figcaption><img src="assets/scenes/teaser-image18.webp" width="1400" height="1400" alt="AffordDrive3D trajectory safely stops behind the leading vehicle."><p class="outcome outcome-good">Safe trajectory <span>PDMS 100.0</span></p></figure>
               </div>
               <div class="trajectory-legend"><span class="human">Human</span><span class="rgb">RGB WAM</span><span class="ours">AffordDrive3D</span></div>
             </div>
           </div>
-          <div class="demo-explanation" aria-live="polite"><strong data-demo-title>Future geometry and driving affordances.</strong><p data-demo-copy>AffordDrive3D additionally predicts future geometry to capture evolving spatial structure, alongside drivable areas and collision-critical regions relevant to ego motion. Together, these predictions align future world modeling more closely with trajectory planning.</p></div>
+          <div class="demo-explanation" aria-live="polite"><span class="explanation-label" data-demo-label>AffordDrive3D</span><strong data-demo-title>Planning-relevant structure becomes explicit.</strong><p data-demo-copy>Alongside future RGB, AffordDrive3D predicts depth, drivable areas, and collision-critical regions. These complementary targets shape the shared representation used for trajectory planning.</p></div>
         </div>
-        <p class="figure-note">Staged explanation of the paper’s example, not a real-time inference video. Per-scene PDMS is shown for the two trajectories.</p>
+        <p class="figure-note">Violet denotes RGB-only appearance modeling; blue denotes AffordDrive3D’s added spatial signals. This is a staged explanation of the paper’s example, not a real-time inference video. Per-scene PDMS is shown for the two trajectories.</p>
       </div>
     </section>
 
