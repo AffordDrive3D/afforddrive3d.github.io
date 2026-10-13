@@ -4,8 +4,8 @@
   const play = demo.querySelector('[data-demo-play]');
   const reduced = window.matchMedia('(prefers-reduced-motion: reduce)');
   const text = [
-    ['Future scene appearance.', 'RGB-based world-action models primarily capture how a scene evolves through appearance prediction. Spatial structure and the regions most relevant to ego motion remain implicit.'],
-    ['Future geometry and driving affordances.', 'AffordDrive3D additionally predicts future geometry to capture evolving spatial structure, alongside drivable areas and collision-critical regions relevant to ego motion. Together, these predictions align future world modeling more closely with trajectory planning.']
+    ['RGB-only: appearance without explicit driving affordances.', 'DriveVLA-W0 learns from future RGB appearance, but this example shows its trajectory colliding with the lead vehicle. The comparison on the right stays visible so you can directly see the planning difference.'],
+    ['AffordDrive3D: spatial structure + motion-relevant regions.', 'In addition to future RGB, our training predicts future depth, drivable area, and collision-critical regions. These auxiliary signals provide action-relevant spatial supervision; in this example the planned trajectory stops safely behind the lead vehicle.']
   ];
   let step = 1, timer = null, playing = false, interacted = false;
   function renderStep(next) {
@@ -15,7 +15,8 @@
     demo.querySelector('[data-demo-title]').textContent = text[step][0];
     demo.querySelector('[data-demo-copy]').textContent = text[step][1];
     demo.querySelectorAll('.added-signal').forEach(el => el.setAttribute('aria-hidden', String(step < 1)));
-    demo.querySelector('.added-plan').setAttribute('aria-hidden', String(step < 1));
+    // Keep both real planning outcomes visible at every stage for direct comparison.
+    demo.querySelector('.added-plan').removeAttribute('aria-hidden');
   }
   function stop() { clearTimeout(timer); timer = null; playing = false; play.textContent = step === 1 ? 'Replay' : 'Play'; }
   function advance() {
