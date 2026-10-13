@@ -10,9 +10,7 @@ Serve the `dist/` directory with any static file server, then open the printed l
 
 ## GitHub Pages
 
-This repository is private source storage only. GitHub Pages is not enabled, and pushing changes does not publish the website.
-
-An inactive deployment template is saved at `deployment/pages.yml.disabled`, outside `.github/workflows/`. Enable deployment only after the site is reviewed and publication is explicitly approved.
+The public project page is deployed from [`dist/`](dist/) with the workflow in [`.github/workflows/deploy-pages.yml`](.github/workflows/deploy-pages.yml). Pushing to `main` automatically publishes the latest website through GitHub Pages.
 
 ## Paper
 
