@@ -141,3 +141,36 @@
   .benchmark table { font-size:11px; }
   .benchmark td:nth-child(2) { font-size:10px; }
 }
+
+
+/* Overview comparison: distinguish the methods while keeping both outcomes visible. */
+.comparison-thesis { display:flex; align-items:baseline; gap:20px; flex-wrap:wrap; padding:22px 0 8px; }
+.comparison-thesis-label { color:#256f82; font-size:11px; font-weight:750; letter-spacing:.09em; text-transform:uppercase; white-space:nowrap; }
+.comparison-thesis strong { flex:1; min-width:260px; font-size:clamp(16px,2vw,23px); font-weight:600; line-height:1.4; letter-spacing:-.02em; }
+.overview-demo { --rgb-color:#9b4775; --ours-color:#13867e; }
+.overview-demo .demo-steps button[data-step-button="0"][aria-selected="true"] { color:var(--rgb-color); }
+.overview-demo .demo-steps button[data-step-button="0"][aria-selected="true"]>span { background:var(--rgb-color); border-color:var(--rgb-color); }
+.overview-demo .demo-steps button[data-step-button="1"][aria-selected="true"] { color:var(--ours-color); }
+.overview-demo .demo-steps button[data-step-button="1"][aria-selected="true"]>span { background:var(--ours-color); border-color:var(--ours-color); }
+.overview-demo .plan-pair { align-items:stretch; }
+.overview-demo .plan-pair figure { position:relative; border:2px solid transparent; border-radius:10px; background:#fff; padding:10px; transition:border-color .4s,background .4s,box-shadow .4s,opacity .4s; }
+.overview-demo .plan-pair figure:first-child { border-color:rgba(155,71,117,.35); background:#fcf7fa; }
+.overview-demo .plan-pair figure.added-plan { border-color:rgba(19,134,126,.35); background:#f4fbf9; }
+.overview-demo[data-step="0"] .plan-pair figure:first-child { border-color:var(--rgb-color); box-shadow:0 0 0 3px rgba(155,71,117,.1); }
+.overview-demo[data-step="1"] .plan-pair figure.added-plan { border-color:var(--ours-color); box-shadow:0 0 0 3px rgba(19,134,126,.1); }
+.overview-demo .plan-pair .added-plan img,.overview-demo .plan-pair .added-plan .outcome { opacity:1!important; transform:none!important; }
+.overview-demo .plan-pair figcaption { min-height:30px; display:flex; align-items:center; }
+.model-tag { display:inline-block; padding:5px 9px; border-radius:5px; font-size:11px; font-weight:750; }
+.model-tag-rgb { color:#78365b; background:#f3e3ed; }
+.model-tag-ours { color:#08665f; background:#d9f2ed; }
+.overview-demo .outcome { border-top:1px solid rgba(25,30,40,.09); padding-top:9px; line-height:1.4; }
+.overview-demo .outcome .outcome-label { font-size:12px; font-weight:750; }
+.overview-demo .outcome-bad .outcome-label { color:#933a68; }
+.overview-demo .outcome-good .outcome-label { color:#087a70; }
+.overview-demo .outcome>span:last-child { font-size:10px; font-weight:500; color:var(--muted); }
+.overview-demo[data-step="0"] .demo-explanation { border-left-color:var(--rgb-color); background:#fbf3f8; }
+.overview-demo[data-step="1"] .demo-explanation { border-left-color:var(--ours-color); background:#eef8f5; }
+.overview-demo .trajectory-legend .rgb { --legend:#9565ad; }
+.overview-demo .trajectory-legend .ours { --legend:#cb925a; }
+@media(max-width:700px) { .comparison-thesis { gap:8px; padding-top:16px; } .comparison-thesis strong { min-width:0; width:100%; } .overview-demo .plan-pair { gap:8px; } .overview-demo .plan-pair figure { padding:6px; } .model-tag { font-size:9px; padding:4px; } .overview-demo .outcome .outcome-label { font-size:10px; } }
+@media(prefers-reduced-motion:reduce) { .overview-demo .plan-pair figure { transition:none; } }
