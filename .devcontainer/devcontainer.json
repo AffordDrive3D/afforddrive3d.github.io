@@ -1,0 +1,14 @@
+{
+  "name": "AffordDrive3D — private preview",
+  "image": "mcr.microsoft.com/devcontainers/python:3.12-bookworm",
+  "forwardPorts": [
+    4173
+  ],
+  "portsAttributes": {
+    "4173": {
+      "label": "AffordDrive3D interactive website",
+      "onAutoForward": "openPreview"
+    }
+  },
+  "postStartCommand": "nohup python3 -m http.server 4173 --bind 0.0.0.0 --directory dist > /tmp/afforddrive-preview.log 2>&1 < /dev/null &"
+}
