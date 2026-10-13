@@ -2,7 +2,7 @@
   const demo = document.querySelector('[data-demo]');
   const steps = [...demo.querySelectorAll('[data-step-button]')];
   const text = [
-    ['RGB-only', 'RGB-based world-action models predict the scene’s <strong>future appearance</strong>. For planning, however, a model must also understand <strong>future geometry</strong> and identify the <strong>regions that matter for the ego vehicle’s future actions</strong>.', 'Predicting future scene appearance'],
+    ['RGB-only', 'RGB-based world-action models predict the scene’s <strong>future appearance</strong>. For planning, however, it is more important for a model to understand <strong>future geometry</strong> and identify the <strong>regions that matter for the ego vehicle’s future actions</strong>.', 'Predicting future scene appearance'],
     ['AffordDrive3D', 'AffordDrive3D predicts <strong>future geometry</strong> to model evolving spatial structure and <strong>driving affordances</strong> to identify regions critical to ego motion. Together, these signals make future world modeling explicitly <strong>action-relevant</strong> for trajectory planning.', 'Future geometry and driving affordances']
   ];
   let step = 0;
